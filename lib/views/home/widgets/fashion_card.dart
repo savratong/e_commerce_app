@@ -24,7 +24,7 @@ class FashionCard extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ProductDetailScreenScreen()),
+                    builder: (context) => const ProductDetailScreen()),
               );
             },
             child: SizedBox(
@@ -40,15 +40,15 @@ class FashionCard extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5),
+          const Padding(
+            padding: EdgeInsets.all(5),
             child: Column(
               children: [
                 SizedBox(
                   width: 170,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "US \$99.99",
                         style: TextStyle(
@@ -63,10 +63,10 @@ class FashionCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 5,
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 170,
                   child: Text(
                     "Cami Midi Dress",

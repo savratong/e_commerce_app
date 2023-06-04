@@ -1,5 +1,5 @@
+import 'package:e_commerce_app/utils/router.dart';
 import 'package:flutter/material.dart';
-import 'main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,15 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //Remove debug mode
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
-      home: const ManinScreen(),
 
-      // routes: {
-      //   "/": (context) => const BottomNavigatorBar(),
-      //   "FashionCard": (context) => const FashionCard(),
-      //   "ProductDetail": (context) => const ProductDetailScreenScreen(),
-      // },
+      initialRoute: RouteGenerator.splashScreen,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

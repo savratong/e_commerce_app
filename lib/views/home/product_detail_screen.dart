@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'widgets/item_bottom_navbar.dart';
 
-class ProductDetailScreenScreen extends StatelessWidget {
-  const ProductDetailScreenScreen({super.key});
+class ProductDetailScreen extends StatelessWidget {
+  const ProductDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +106,7 @@ class ProductDetailScreenScreen extends StatelessWidget {
                           itemCount: 10,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return const Padding(
+                            return  Padding(
                               padding: EdgeInsets.only(right: 10),
                               child: FashionCard(),
                             );

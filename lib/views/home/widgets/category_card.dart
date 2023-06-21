@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../../models/response/category_model.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({
+  CategoryCard({
     super.key,
+    required this.data,
   });
 
+  CategoryData data;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,16 +21,21 @@ class CategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(5),
-            child: Image.network(
-                "https://img.freepik.com/free-vector/sticker-white-t-shirt-with-coathanger_1308-88578.jpg?w=1380&t=st=1685183547~exp=1685184147~hmac=eaf61265b37373ccb2ec75fcbfe52119fcbce76d39e64ab386ffbfb5e4d48f7a"),
+            child: Image.network("${data.attributes.iconUrl}"), //Category Image
           ),
         ),
         const SizedBox(
           height: 5,
         ),
-        const Text(
-          "Shirt",
-          style: TextStyle(fontSize: 15),
+        SizedBox(
+          width: 60,
+          child: Center(
+            child: Text(
+              data.attributes.title, //Category title
+              overflow: TextOverflow.ellipsis, maxLines: 1,
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
         )
       ],
     );

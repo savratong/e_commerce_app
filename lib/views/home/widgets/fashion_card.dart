@@ -1,11 +1,15 @@
+import 'package:e_commerce_app/models/response/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../product_detail_screen.dart';
 
 class FashionCard extends StatelessWidget {
-  const FashionCard({
+  FashionCard({
     super.key,
+    required this.data,
   });
+
+  ProductData data;
 
   @override
   Widget build(BuildContext context) {
@@ -20,28 +24,40 @@ class FashionCard extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              // Navigator.pushNamed(context, "ProductDetail");
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ProductDetailScreen()),
+                  builder: (context) => const ProductDetailScreen(),
+                ),
               );
             },
             child: SizedBox(
               height: 270,
               width: 185,
               child: ClipRRect(
-                // borderRadius: const BorderRadius.only(topLeft: Radius.circular(18)),
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  "https://st.mngbcn.com/rcs/pics/static/T4/fotos/outfit/S20/47094393_40-99999999_01.jpg?ts=1673336292325&imwidth=544&imdensity=2",
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(8),
+                  child:
+                      // data.attributes!.thumbnail!.data!.attributes!.url != null
+                      // ?
+                      Image.asset(
+                    // "https://cms.istad.co${data.attributes!.thumbnail!.data!.attributes!.url}",
+                    "assets/images/default_image.jpg",
+                    fit: BoxFit.cover,
+                  )
+                  // //*if the url null will display image asset instead
+                  // : Placeholder(
+                  //     fallbackHeight: 270,
+                  //     fallbackWidth: 185,
+                  //     child: Image.asset(
+                  //       "assets/images/default_image.jpg",
+                  //       fit: BoxFit.cover,
+                  //     ),
+                  //   ),
+                  ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(5),
+          Padding(
+            padding: const EdgeInsets.all(5),
             child: Column(
               children: [
                 SizedBox(
@@ -50,29 +66,29 @@ class FashionCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "US \$99.99",
-                        style: TextStyle(
+                        "US \$${data.attributes!.price}", //Product Price
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.favorite_border_outlined,
                         size: 25,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 SizedBox(
                   width: 170,
                   child: Text(
-                    "Cami Midi Dress",
+                    ("${data.attributes.title}"), //Product Title
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                     ),
                   ),

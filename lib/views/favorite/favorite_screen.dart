@@ -1,8 +1,8 @@
 import 'package:e_commerce_app/utils/router.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class FavoriteScreen extends StatelessWidget {
+  const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,15 @@ class ProfileScreen extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.arrow_back)),
-        title: const Center(child: Text("Profile")),
+        title: const Center(
+          child: Text(
+            "Favorite Product",
+          ),
+        ),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
-          children: [Text("Profile")],
+          children: [Text("Favorite")],
         ),
       ),
     );

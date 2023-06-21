@@ -1,5 +1,7 @@
 import 'package:e_commerce_app/utils/router.dart';
+import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,14 +13,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, //Remove debug mode
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductViewModel()),
+        // Add more providers if needed
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
 
-      initialRoute: RouteGenerator.splashScreen,
-      onGenerateRoute: RouteGenerator.generateRoute,
+        debugShowCheckedModeBanner: false, //Remove debug mode
+        initialRoute: RouteGenerator.onboardingPage,
+        onGenerateRoute: RouteGenerator.generateRoute,
+      ),
     );
   }
 }

@@ -33,7 +33,7 @@ class _BannerSlideshowState extends State<BannerSlideshow> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-            height: 180,
+            height: 170,
             autoPlay: true,
             enlargeCenterPage: true,
             aspectRatio: 16 / 9,

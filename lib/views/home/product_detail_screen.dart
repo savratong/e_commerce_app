@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/views/home/widgets/fashion_card.dart';
+import 'package:e_commerce_app/views/home/widgets/item_color_card.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/item_bottom_navbar.dart';
@@ -8,9 +9,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
           slivers: [
             SliverAppBar(
               pinned: true,
@@ -47,79 +48,108 @@ class ProductDetailScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          child: const Text(
-                            "Shorts with gathered detail",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                child: ClipRect(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            child: const Text(
+                              "Shorts with gathered detail",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(
-                            Icons.favorite_border_outlined,
-                            size: 25,
+                          const Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: Icon(
+                              Icons.favorite_border_outlined,
+                              size: 25,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "Description",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Text(
-                      "100% cotton fabric. Light fabric. Shirt-style collar. Classic collar. Front closure. Button up. Slim fit. Long sleeve. Buttoned cuffs. Without pockets on the front part. Party and events collection.",
-                      textAlign: TextAlign.justify,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "Similar items",
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                    ),
-                    Container(
-                      height: 355,
-                      padding: const EdgeInsets.only(
-                        top: 10,
+                        ],
                       ),
-                      child: ListView.builder(
-                          itemCount: 10,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return  Padding(
-                              padding: EdgeInsets.only(right: 10),
-                              child: FashionCard(),
-                            );
-                          }),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        "Colors availabe",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      //*Item color list
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: SizedBox(
+                          height: 100,
+                          child: ListView.builder(
+                              itemCount: 3,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return const Padding(
+                                  padding: EdgeInsets.only(right: 5),
+                                  child: ItemColorCard(), //Imported
+                                );
+                              }),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Text(
+                        "Description",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Text(
+                        "100% cotton fabric. Light fabric. Shirt-style collar. Classic collar. Front closure. Button up. Slim fit. Long sleeve. Buttoned cuffs. Without pockets on the front part. Party and events collection.",
+                        textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Similar items",
+                        style: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.bold),
+                      ),
+                      // Container(
+                      //   height: 355,
+                      //   padding: const EdgeInsets.only(
+                      //     top: 10,
+                      //   ),
+                      //   child: ListView.builder(
+                      //       itemCount: 10,
+                      //       scrollDirection: Axis.horizontal,
+                      //       itemBuilder: (context, index) {
+                      //         return  Padding(
+                      //           padding: EdgeInsets.only(right: 10),
+                      //           child: FashionCard(data: ),
+                      //         );
+                      //       }),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             )
           ],
         ),
-        bottomNavigationBar: const ItemBottomNavBar(),
       ),
+      bottomNavigationBar: const ItemBottomNavBar(),
     );
   }
 }

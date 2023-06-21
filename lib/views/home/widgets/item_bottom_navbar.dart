@@ -40,8 +40,8 @@ class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
                 showModalBottomSheet(
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   )),
                   context: context,
                   builder: (BuildContext context) {
@@ -85,84 +85,87 @@ class ProductOptionsBottomSheet extends StatefulWidget {
 
 class _ProductOptionsBottomSheetState extends State<ProductOptionsBottomSheet> {
   List<String> colors = ['Red', 'Green', 'Blue'];
-  List<String> sizes = ['S', 'M', 'L'];
+  List<String> sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
   String selectedColor = '';
   String selectedSize = '';
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 360,
       child: Column(
         children: [
-          const ListTile(
-            title: Center(
+          ListTile(
+            title: const Center(
               child: Text(
-                'Select your Color and Size',
+                'Select Size',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
-            // trailing: IconButton(
-            //   icon: const Icon(Icons.close),
-            //   onPressed: () {
-            //     Navigator.pop(context);
-            //   },
-            // ),
+            trailing: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
           const Divider(
-            thickness: 2,
+            thickness: 1,
           ),
           Row(
             children: [
+              //*Select Colors
+              // SizedBox(
+              //   width: MediaQuery.of(context).size.width / 2,
+              //   height: 200,
+              //   child: Column(
+              //     children: [
+              //       const Text(
+              //         'Color',
+              //         style:
+              //             TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //       ),
+              //       Expanded(
+              //         child: ListView.builder(
+              //           itemCount: colors.length,
+              //           itemBuilder: (context, index) {
+              //             final color = colors[index];
+              //             final isSelected = selectedColor == color;
+              //             final selectedText = isSelected
+              //                 ? const TextStyle(fontWeight: FontWeight.bold)
+              //                 : null;
+              //             return RadioListTile<String>(
+              //               title: Text(
+              //                 color,
+              //                 style: selectedText,
+              //               ),
+              //               value: color,
+              //               groupValue: selectedColor,
+              //               onChanged: (value) {
+              //                 setState(() {
+              //                   selectedColor = value!;
+              //                 });
+              //               },
+              //             );
+              //           },
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
+              //*Select Sizes
               SizedBox(
-                width: MediaQuery.of(context).size.width / 2,
+                width: MediaQuery.of(context).size.width,
                 height: 200,
                 child: Column(
                   children: [
-                    const Text(
-                      'Color',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: colors.length,
-                        itemBuilder: (context, index) {
-                          final color = colors[index];
-                          final isSelected = selectedColor == color;
-                          final selectedText = isSelected
-                              ? const TextStyle(fontWeight: FontWeight.bold)
-                              : null;
-                          return RadioListTile<String>(
-                            title: Text(
-                              color,
-                              style: selectedText,
-                            ),
-                            value: color,
-                            groupValue: selectedColor,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedColor = value!;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2,
-                height: 200,
-                child: Column(
-                  children: [
-                    const Text(
-                      'Size',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+                    // const Text(
+                    //   'Size',
+                    //   style:
+                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    // ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: sizes.length,
@@ -197,7 +200,7 @@ class _ProductOptionsBottomSheetState extends State<ProductOptionsBottomSheet> {
           const SizedBox(height: 16),
           InkWell(
             onTap: () {
-              if (selectedColor.isNotEmpty && selectedSize.isNotEmpty) {
+              if (selectedColor.isNotEmpty || selectedSize.isNotEmpty) {
                 Navigator.pop(context);
                 // Perform action with selected color and size
                 print('Selected Color: $selectedColor');
@@ -226,7 +229,7 @@ class _ProductOptionsBottomSheetState extends State<ProductOptionsBottomSheet> {
                   builder: (context) => AlertDialog(
                     title: const Text("Successful!"),
                     icon: const Icon(
-                      Icons.done_outline_outlined,
+                      Icons.done_rounded,
                       size: 50,
                       color: Colors.green,
                     ),
@@ -256,7 +259,7 @@ class _ProductOptionsBottomSheetState extends State<ProductOptionsBottomSheet> {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Attention!'),
-                    content: const Text('Please select a color and size.'),
+                    content: const Text('Please select size.'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),

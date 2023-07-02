@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../../../models/response/category_model.dart';
 
 class CategoryCard extends StatelessWidget {
-  CategoryCard({
+  final CategoryData categoryData;
+  const CategoryCard({
     super.key,
-    required this.data,
+    required this.categoryData,
   });
 
-  CategoryData data;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,7 +21,7 @@ class CategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(5),
-            child: Image.network("${data.attributes.iconUrl}"), //Category Image
+            //! child: Image.network(categoryData.attributes.iconUrl), //Category Image
           ),
         ),
         const SizedBox(
@@ -31,8 +31,8 @@ class CategoryCard extends StatelessWidget {
           width: 60,
           child: Center(
             child: Text(
-              data.attributes.title, //Category title
-              overflow: TextOverflow.ellipsis, maxLines: 1,
+              categoryData.attributes.title, //Category title
+              overflow: TextOverflow.clip, maxLines: 1,
               style: const TextStyle(fontSize: 15),
             ),
           ),

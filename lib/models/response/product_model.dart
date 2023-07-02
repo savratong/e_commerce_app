@@ -210,10 +210,10 @@
 //         "url": url,
 //       };
 // }
+// //!===============================================
+// // To parse this JSON data, do
 
-// To parse this JSON data, do
-//
-//     final product = productFromJson(jsonString);
+// //     final product = productFromJson(jsonString);
 
 // import 'dart:convert';
 
@@ -283,9 +283,11 @@
 //         price: json["price"],
 //         rating: json["rating"],
 //         description: json["description"],
-//         quantity: json["quantity"],
-//         category: Category.fromJson(json["category"]),
-//         thumbnail: Thumbnail.fromJson(json["thumbnail"]),
+//         quantity: json['quantity'],
+//         category: Category.fromJson(json['category']['data']),
+//         thumbnail: json['thumbnail'] != null
+//             ? Thumbnail.fromJson(json['thumbnail']['data'])
+//             : null,
 //       );
 
 //   Map<String, dynamic> toJson() => {
@@ -409,6 +411,7 @@
 //       };
 // }
 
+//!==============================================
 // To parse this JSON data, do
 //
 //     final product = productFromJson(jsonString);
@@ -420,129 +423,132 @@ Product productFromJson(String str) => Product.fromJson(json.decode(str));
 String productToJson(Product data) => json.encode(data.toJson());
 
 class Product {
-    List<ProductData> data;
+  List<ProductData> data;
 
-    Product({
-        required this.data,
-    });
+  Product({
+    required this.data,
+  });
 
-    factory Product.fromJson(Map<String, dynamic> json) => Product(
-        data: List<ProductData>.from(json["data"].map((x) => ProductData.fromJson(x))),
-    );
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        data: List<ProductData>.from(
+            json["data"].map((x) => ProductData.fromJson(x))),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    };
+      };
 }
 
 class ProductData {
-    int id;
-    ProductDataAttributes attributes;
+  int id;
+  ProductDataAttributes attributes;
 
-    ProductData({
-        required this.id,
-        required this.attributes,
-    });
+  ProductData({
+    required this.id,
+    required this.attributes,
+  });
 
-    factory ProductData.fromJson(Map<String, dynamic> json) => ProductData(
+  factory ProductData.fromJson(Map<String, dynamic> json) => ProductData(
         id: json["id"],
         attributes: ProductDataAttributes.fromJson(json["attributes"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "attributes": attributes.toJson(),
-    };
+      };
 }
 
 class ProductDataAttributes {
-    String title;
-    String price;
-    String rating;
-    String description;
-    String quantity;
-    Category category;
+  String title;
+  String price;
+  String rating;
+  String description;
+  String quantity;
+  Category category;
 
-    ProductDataAttributes({
-        required this.title,
-        required this.price,
-        required this.rating,
-        required this.description,
-        required this.quantity,
-        required this.category,
-    });
+  ProductDataAttributes({
+    required this.title,
+    required this.price,
+    required this.rating,
+    required this.description,
+    required this.quantity,
+    required this.category,
+  });
 
-    factory ProductDataAttributes.fromJson(Map<String, dynamic> json) => ProductDataAttributes(
+  factory ProductDataAttributes.fromJson(Map<String, dynamic> json) =>
+      ProductDataAttributes(
         title: json["title"],
         price: json["price"],
         rating: json["rating"],
         description: json["description"],
         quantity: json["quantity"],
         category: Category.fromJson(json["category"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "title": title,
         "price": price,
         "rating": rating,
         "description": description,
         "quantity": quantity,
         "category": category.toJson(),
-    };
+      };
 }
 
 class Category {
-    CategoryData data;
+  CategoryData data;
 
-    Category({
-        required this.data,
-    });
+  Category({
+    required this.data,
+  });
 
-    factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
         data: CategoryData.fromJson(json["data"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "data": data.toJson(),
-    };
+      };
 }
 
 class CategoryData {
-    int id;
-    CategoryDataAttributes attributes;
+  int id;
+  CategoryDataAttributes attributes;
 
-    CategoryData({
-        required this.id,
-        required this.attributes,
-    });
+  CategoryData({
+    required this.id,
+    required this.attributes,
+  });
 
-    factory CategoryData.fromJson(Map<String, dynamic> json) => CategoryData(
+  factory CategoryData.fromJson(Map<String, dynamic> json) => CategoryData(
         id: json["id"],
         attributes: CategoryDataAttributes.fromJson(json["attributes"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "attributes": attributes.toJson(),
-    };
+      };
 }
 
 class CategoryDataAttributes {
-    String title;
-    String iconUrl;
+  String title;
+  String iconUrl;
 
-    CategoryDataAttributes({
-        required this.title,
-        required this.iconUrl,
-    });
+  CategoryDataAttributes({
+    required this.title,
+    required this.iconUrl,
+  });
 
-    factory CategoryDataAttributes.fromJson(Map<String, dynamic> json) => CategoryDataAttributes(
+  factory CategoryDataAttributes.fromJson(Map<String, dynamic> json) =>
+      CategoryDataAttributes(
         title: json["title"],
         iconUrl: json["iconUrl"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "title": title,
         "iconUrl": iconUrl,
-    };
+      };
 }

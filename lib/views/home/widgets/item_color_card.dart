@@ -15,7 +15,7 @@ class ItemColorCard extends StatelessWidget {
             height: 80,
             width: 70,
             child: Image.network(
-              "https://st.mngbcn.com/rcs/pics/static/T4/fotos/outfit/S20/47094393_40-99999999_01.jpg?ts=1673336292325&imwidth=544&imdensity=2",
+              "https://zandokh.com/image/catalog/products/2023-06/4212304005/Wind-Hoodie-Jacket%20(2).jpg",
               fit: BoxFit.cover,
             ),
           ),

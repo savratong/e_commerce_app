@@ -1,15 +1,16 @@
-import 'package:e_commerce_app/models/response/product_model.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
+import 'package:e_commerce_app/models/response/product_model.dart';
 import '../product_detail_screen.dart';
 
-class FashionCard extends StatelessWidget {
-  FashionCard({
-    super.key,
-    required this.data,
-  });
-
-  ProductData data;
+class ProductCard extends StatelessWidget {
+  ProductData productData;
+  Product? product;
+  ProductCard({
+    Key? key,
+    required this.productData,
+    this.product,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,10 @@ class FashionCard extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ProductDetailScreen(),
+                  builder: (context) => ProductDetailScreen(
+                    productData: productData,
+                    // product: product,
+                  ),
                 ),
               );
             },
@@ -37,11 +41,11 @@ class FashionCard extends StatelessWidget {
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child:
-                      // data.attributes!.thumbnail!.data!.attributes!.url != null
-                      // ?
-                      Image.asset(
-                    // "https://cms.istad.co${data.attributes!.thumbnail!.data!.attributes!.url}",
-                    "assets/images/default_image.jpg",
+                      // data.attributes.thumbnail!.data!.attributes!.url != null
+                      //     ?
+                      Image.network(
+                    // "https://cms.istad.co${data.attributes.thumbnail!.data!.attributes!.url}",
+                    'https://zandokh.com/image/catalog/products/2023-06/4212304005/Wind-Hoodie-Jacket%20(2).jpg',
                     fit: BoxFit.cover,
                   )
                   // //*if the url null will display image asset instead
@@ -66,7 +70,7 @@ class FashionCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "US \$${data.attributes!.price}", //Product Price
+                        "US \$${productData.attributes.price}", //Product Price
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -85,7 +89,7 @@ class FashionCard extends StatelessWidget {
                 SizedBox(
                   width: 170,
                   child: Text(
-                    ("${data.attributes.title}"), //Product Title
+                    (productData.attributes.title), //Product Title
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(

@@ -1,10 +1,28 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:e_commerce_app/data/app_exception.dart';
+import 'package:e_commerce_app/models/response/image_model.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiService {
   dynamic responseJson;
+
+//*Upload image
+
+  Future uploadImage(String url, file) async {
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.files.add(await http.MultipartFile.fromPath('files', file));
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      final res = await response.stream.bytesToString();
+      var imageList = imageModelFromJson(res);
+      return imageList[0];
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
 
 //*GET
   Future<dynamic> getApiResponse(String url) async {

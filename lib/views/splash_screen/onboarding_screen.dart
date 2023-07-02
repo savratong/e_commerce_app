@@ -9,18 +9,18 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const SizedBox(
-            height: 300,
-          ),
+         SizedBox(
+             height: MediaQuery.of(context).size.height*0.2,
+           ),
           const Center(
             child: Text(
               "Wellcome!",
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
           ),
-          const SizedBox(
-            height: 300,
-          ),
+           SizedBox(
+             height: MediaQuery.of(context).size.height*0.2,
+           ),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(

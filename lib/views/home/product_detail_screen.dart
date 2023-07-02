@@ -1,11 +1,34 @@
-import 'package:e_commerce_app/views/home/widgets/fashion_card.dart';
-import 'package:e_commerce_app/views/home/widgets/item_color_card.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
+import 'package:e_commerce_app/views/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'package:e_commerce_app/models/response/product_model.dart';
+import 'package:e_commerce_app/views/home/widgets/item_color_card.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/item_bottom_navbar.dart';
 
-class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({super.key});
+class ProductDetailScreen extends StatefulWidget {
+  ProductData productData;
+  ProductDetailScreen({
+    Key? key,
+    required this.productData,
+  }) : super(key: key);
+
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  var productViewModel = ProductViewModel();
+
+  @override
+  void initState() {
+    productViewModel = Provider.of<ProductViewModel>(context, listen: false);
+    productViewModel.fetchAllProducts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +54,11 @@ class ProductDetailScreen extends StatelessWidget {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    // TODO Add your onPressed logic here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CartScreen()),
+                    );
                   },
                 ),
               ],
@@ -39,7 +66,7 @@ class ProductDetailScreen extends StatelessWidget {
               expandedHeight: 550,
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  'https://st.mngbcn.com/rcs/pics/static/T4/fotos/outfit/S20/47094393_40-99999999_01.jpg?ts=1673336292325&imwidth=544&imdensity=2',
+                  'https://zandokh.com/image/catalog/products/2023-06/4212304005/Wind-Hoodie-Jacket%20(2).jpg',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -57,11 +84,12 @@ class ProductDetailScreen extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.85,
-                            child: const Text(
-                              "Shorts with gathered detail",
+                            child: Text(
+                              widget.productData.attributes
+                                  .title, //Product's title
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -114,18 +142,19 @@ class ProductDetailScreen extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(
-                        "100% cotton fabric. Light fabric. Shirt-style collar. Classic collar. Front closure. Button up. Slim fit. Long sleeve. Buttoned cuffs. Without pockets on the front part. Party and events collection.",
+                      Text(
+                        widget.productData.attributes
+                            .description, //Product's discription
                         textAlign: TextAlign.justify,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text(
-                        "Similar items",
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
-                      ),
+                      // const Text(
+                      //   "Similar items",
+                      //   style: TextStyle(
+                      //       fontSize: 23, fontWeight: FontWeight.bold),
+                      // ),
                       // Container(
                       //   height: 355,
                       //   padding: const EdgeInsets.only(
@@ -135,9 +164,9 @@ class ProductDetailScreen extends StatelessWidget {
                       //       itemCount: 10,
                       //       scrollDirection: Axis.horizontal,
                       //       itemBuilder: (context, index) {
-                      //         return  Padding(
-                      //           padding: EdgeInsets.only(right: 10),
-                      //           child: FashionCard(data: ),
+                      //         return Padding(
+                      //           padding: const EdgeInsets.only(right: 10),
+                      //           child: ProductCard(productData: productData),
                       //         );
                       //       }),
                       // ),
@@ -149,7 +178,11 @@ class ProductDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const ItemBottomNavBar(),
+      bottomNavigationBar: Consumer<ProductViewModel>(
+        builder: (context, value, _) {
+          return ItemBottomNavBar(productData: widget.productData);
+        },
+      ),
     );
   }
 }

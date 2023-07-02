@@ -8,7 +8,7 @@ import 'see_all_product.dart';
 import 'see_allcategory.dart';
 import 'widgets/banner_slideshow.dart';
 import 'widgets/category_card.dart';
-import 'widgets/fashion_card.dart';
+import 'widgets/product_card.dart';
 import 'widgets/left_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //*fetch date from viewmodel
   var productViewModel = ProductViewModel();
   var categoryViewModel = CategoryViewModel();
+
   @override
   void initState() {
     productViewModel.fetchAllProducts();
@@ -168,7 +169,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 18),
-                                child: CategoryCard(data: value.categories.data!.data[index]),
+                                child: CategoryCard(
+                                    categoryData:
+                                        value.categories.data!.data[index]),
                               );
                             }),
                       );
@@ -239,8 +242,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         childAspectRatio: 0.54,
                       ),
                       itemBuilder: (builder, index) {
-                        return FashionCard(
-                            data: value.products.data!.data[index]);
+                        return ProductCard(
+                          productData: value.products.data!.data[index],
+                        );
                       },
                     );
                   default:

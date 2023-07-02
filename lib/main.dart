@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductViewModel()),
+
         // Add more providers if needed
       ],
       child: MaterialApp(

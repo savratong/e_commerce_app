@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.arrow_back)),
-        title: const Center(child: Text("Profile")),
+        title: const Text("Profile"),
       ),
       body: const Center(
         child: Column(

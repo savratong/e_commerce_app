@@ -17,10 +17,8 @@ class FavoriteScreen extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.arrow_back)),
-        title: const Center(
-          child: Text(
-            "Favorite Product",
-          ),
+        title: const Text(
+          "Favorite Product",
         ),
       ),
       body: Center(

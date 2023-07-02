@@ -11,7 +11,7 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Admin Panel")),
+        title: const Text("Admin Panel"),
         elevation: 0,
         automaticallyImplyLeading: false, // Disable the default back arrow
         leading: IconButton(

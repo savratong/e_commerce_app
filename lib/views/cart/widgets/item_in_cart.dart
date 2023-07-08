@@ -41,7 +41,6 @@ class _ItemInCartState extends State<ItemInCart> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductViewModel>(
@@ -64,10 +63,13 @@ class _ItemInCartState extends State<ItemInCart> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
-                        "https://zandokh.com/image/catalog/products/2023-06/4212304005/Wind-Hoodie-Jacket%20(2).jpg",
+                        "https://cms.istad.co${widget.productData.attributes!.thumbnail!.data!.attributes!.url}",
                         fit: BoxFit.cover,
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    width: 10,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +77,7 @@ class _ItemInCartState extends State<ItemInCart> {
                       SizedBox(
                         width: 210,
                         child: Text(
-                          widget.productData.attributes.title, //Product title
+                          "${widget.productData.attributes!.title}", //Product title
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
@@ -84,17 +86,22 @@ class _ItemInCartState extends State<ItemInCart> {
                           ),
                         ),
                       ),
-                      const Text(
-                        "Size:",
+                      Text(
+                        "${widget.productData.attributes!.description}",
                         // style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 33,
                       ),
-                      Text(
-                        "Price:${widget.productData.attributes.price}", //Product price
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
+                      Row(
+                        children: [
+                          const Text("Price: "),
+                          Text(
+                            "\$${widget.productData.attributes!.price}", //Product price
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ],
                       )
                     ],
                   ),
@@ -105,7 +112,6 @@ class _ItemInCartState extends State<ItemInCart> {
                 right: -10,
                 child: IconButton(
                   onPressed: () {
-                    // Implement your delete logic here//TODO update this logic and data flow
                     productViewModel.removeFromCart(widget.productData);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

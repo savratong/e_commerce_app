@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:e_commerce_app/data/response/api_response.dart';
 import 'package:e_commerce_app/data/response/status.dart';
 import 'package:e_commerce_app/models/response/product_model.dart';
 import 'package:e_commerce_app/repository/product_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductViewModel extends ChangeNotifier {
   final _productRepository = ProductRepository();
@@ -16,14 +19,51 @@ class ProductViewModel extends ChangeNotifier {
   List<ProductData> _cartItems = [];
   List<ProductData> get cartItems => _cartItems;
 
+  String kCartItemsKey = 'cart_items';
+
+  // void addToCart(ProductData productData) {
+  //   _cartItems.add(productData);
+  //   notifyListeners();
+  // }
+
+  // void removeFromCart(ProductData productData) {
+  //   _cartItems.remove(productData);
+  //   notifyListeners();
+  // }
+
   void addToCart(ProductData productData) {
     _cartItems.add(productData);
+    saveCartItems();
     notifyListeners();
   }
 
   void removeFromCart(ProductData productData) {
-    _cartItems.remove(productData);
+    // _cartItems.remove(productData);
+    _cartItems.removeWhere((item) =>
+        item.id == productData.id); // Remove the item with matching ID
     notifyListeners();
+    saveCartItems();
+  }
+
+  void saveCartItems() {
+    final cartItemsJson = jsonEncode(_cartItems);
+    // Save the cart items to local storage or preferences
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString(kCartItemsKey, cartItemsJson);
+    });
+  }
+
+  void loadCartItems() {
+    // Load the cart items from local storage or preferences
+    SharedPreferences.getInstance().then((prefs) {
+      final cartItemsJson = prefs.getString(kCartItemsKey);
+      if (cartItemsJson != null) {
+        final cartItems = List<ProductData>.from(jsonDecode(cartItemsJson)
+            .map((itemJson) => ProductData.fromJson(itemJson)));
+        _cartItems = cartItems;
+        notifyListeners();
+      }
+    });
   }
 
   setImageResponse(response) {

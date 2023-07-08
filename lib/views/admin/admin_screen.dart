@@ -11,16 +11,22 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Admin Panel"),
+        title: const Center(child: Text("Admin Panel")),
         elevation: 0,
-        automaticallyImplyLeading: false, // Disable the default back arrow
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                RouteGenerator.navigationScreen,
-              );
-            },
-            icon: const Icon(Icons.arrow_back)),
+        // automaticallyImplyLeading: false, // Disable the default back arrow
+        // leading: IconButton(
+        //     onPressed: () {
+        //       Navigator.of(context).pushNamed(
+        //         RouteGenerator.navigationScreen,
+        //       );
+        //     },
+        //     icon: const Icon(Icons.arrow_back)),
+        actions: [
+          Badge(
+            child: IconButton(
+                onPressed: () {}, icon: const Icon(Icons.notifications)),
+          )
+        ],
       ),
       body: CustomScrollView(
         slivers: [

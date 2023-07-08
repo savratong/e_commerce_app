@@ -66,7 +66,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               expandedHeight: 550,
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  'https://zandokh.com/image/catalog/products/2023-06/4212304005/Wind-Hoodie-Jacket%20(2).jpg',
+                  "https://cms.istad.co${widget.productData.attributes!.thumbnail!.data!.attributes!.url}",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -85,8 +85,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.85,
                             child: Text(
-                              widget.productData.attributes
-                                  .title, //Product's title
+                              "${widget.productData.attributes!.title}", //Product's title
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: const TextStyle(
@@ -143,8 +142,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         height: 5,
                       ),
                       Text(
-                        widget.productData.attributes
-                            .description, //Product's discription
+                        "${widget.productData.attributes!.description}", //Product's discription
                         textAlign: TextAlign.justify,
                       ),
                       const SizedBox(

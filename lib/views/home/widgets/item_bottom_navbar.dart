@@ -51,7 +51,7 @@ class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
                       BoxDecoration(borderRadius: BorderRadius.circular(8)),
                   child: Center(
                     child: Text(
-                      "US \$${productData.attributes.price}", // Use the local productData variable
+                      "Price: US \$${productData.attributes!.price}", // Use the local productData variable
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -80,10 +80,9 @@ class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
                       ),
                     );
                   },
-                  child: const CustomButton(
+                  child: CustomButton(
                     cBtnName: 'Add to Cart',
-                    cBtnWidth: 90,
-                    cBtnHight: 50,
+                    cBtnWidth: MediaQuery.of(context).size.width / 2.1,
                   ),
                 ),
               ],

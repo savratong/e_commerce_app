@@ -40,23 +40,16 @@ class ProductCard extends StatelessWidget {
               width: 185,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child:
-                      // data.attributes.thumbnail!.data!.attributes!.url != null
-                      //     ?
-                      Image.network(
-                    // "https://cms.istad.co${data.attributes.thumbnail!.data!.attributes!.url}",
-                    'https://zandokh.com/image/catalog/products/2023-06/4212304005/Wind-Hoodie-Jacket%20(2).jpg',
-                    fit: BoxFit.cover,
-                  )
-                  // //*if the url null will display image asset instead
-                  // : Placeholder(
-                  //     fallbackHeight: 270,
-                  //     fallbackWidth: 185,
-                  //     child: Image.asset(
-                  //       "assets/images/default_image.jpg",
-                  //       fit: BoxFit.cover,
-                  //     ),
-                  //   ),
+                  child: productData.attributes!.thumbnail != null &&
+                              productData.attributes != null
+                          ? Image.network(
+                              "https://cms.istad.co${productData.attributes!.thumbnail!.data!.attributes!.url}",
+                              // "assets/images/default_image.jpg",
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset("assets/images/default_image.jpg",
+                              fit: BoxFit.cover)
+                
                   ),
             ),
           ),
@@ -70,7 +63,7 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "US \$${productData.attributes.price}", //Product Price
+                        "US \$${productData.attributes!.price}", //Product Price
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -89,7 +82,7 @@ class ProductCard extends StatelessWidget {
                 SizedBox(
                   width: 170,
                   child: Text(
-                    (productData.attributes.title), //Product Title
+                    ("${productData.attributes!.title}"), //Product Title
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(

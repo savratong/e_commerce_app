@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/utils/router.dart';
 import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -13,6 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(statusBarColor: Colors.blue));
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductViewModel()),

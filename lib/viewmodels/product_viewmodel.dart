@@ -106,11 +106,11 @@ class ProductViewModel extends ChangeNotifier {
   }
 
 //*POST
-  // Future<dynamic> postProduct(requestBody) async {
-  //   await _productRepository
-  //       .postProduct(requestBody)
-  //       .then((value) => setProductList(ApiResponse.completed(value)))
-  //       .onError((error, stackTrace) =>
-  //           setProductList(ApiResponse.error(error.toString())));
-  // }
+  Future<dynamic> postProduct(requestBody) async {
+    await _productRepository
+        .postProduct(requestBody)
+        .then((value) => setProductList(ApiResponse.completed(value)))
+        .onError((error, stackTrace) =>
+            setProductList(ApiResponse.error(error.toString())));
+  }
 }

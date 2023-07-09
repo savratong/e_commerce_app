@@ -40,13 +40,11 @@ class AdminScreen extends StatelessWidget {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        //TODO
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const AddNewProductScreen()),
+                                   AddNewProduct()),
                         );
                       },
                       child: Container(

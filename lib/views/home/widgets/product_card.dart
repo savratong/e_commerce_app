@@ -41,16 +41,14 @@ class ProductCard extends StatelessWidget {
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: productData.attributes!.thumbnail != null &&
-                              productData.attributes != null
-                          ? Image.network(
-                              "https://cms.istad.co${productData.attributes!.thumbnail!.data!.attributes!.url}",
-                              // "assets/images/default_image.jpg",
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset("assets/images/default_image.jpg",
-                              fit: BoxFit.cover)
-                
-                  ),
+                          productData.attributes != null
+                      ? Image.network(
+                          "https://cms.istad.co${productData.attributes!.thumbnail!.data!.attributes!.url}",
+                          // "assets/images/default_image.jpg",
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset("assets/images/default_image.jpg",
+                          fit: BoxFit.cover)),
             ),
           ),
           Padding(

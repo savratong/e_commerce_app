@@ -41,19 +41,20 @@ class _AddNewProductState extends State<AddNewProduct> {
     super.dispose();
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   if (widget.isUpdate!) {
-  //     titleController.text = widget.data.attributes.title;
-  //     ratingController.text = widget.data.attributes.rating.toString();
-  //     descriptionController.text = widget.data.attributes.desciption.toString();
-  //     quantityController.text = widget.data.attributes.quantity.toString();
-  //     categoryController.text = widget.data.attributes.category;
-  //     priceController.text = widget.data.attributes.price.toString();
-  //     imageId = widget.data.attributes.thumbnail.data.id;
-  //   }
-  // }
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isUpdate!) {
+      titleController.text = widget.data.attributes.title;
+      ratingController.text = widget.data.attributes.rating;
+      descriptionController.text = widget.data.attributes.description;
+      quantityController.text = widget.data.attributes.quantity;
+      categoryController.text =
+          widget.data.attributes.category.data.attributes.title;
+      priceController.text = widget.data.attributes.price;
+      imageId = widget.data.attributes.thumbnail.data.id;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,12 +93,16 @@ class _AddNewProductState extends State<AddNewProduct> {
                               ? SizedBox(
                                   width: double.infinity,
                                   height: 250,
-                                  child: Image.network(
-                                    'https://www.atlantawatershed.org/wp-content/uploads/2017/06/default-placeholder.png',
-                                    width: double.infinity,
-                                    height: 250,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: widget.isUpdate!
+                                      ? Image.network(
+                                          "https://cms.istad.co${widget.data.attributes.thumbnail.data.attributes.url}",
+                                        )
+                                      : Image.network(
+                                          'https://www.atlantawatershed.org/wp-content/uploads/2017/06/default-placeholder.png',
+                                          width: double.infinity,
+                                          height: 250,
+                                          fit: BoxFit.cover,
+                                        ),
                                 )
                               : Image.file(
                                   imageFile,
@@ -236,16 +241,22 @@ class _AddNewProductState extends State<AddNewProduct> {
                         }
 
                         return InkWell(
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              postProduct();
-                            }
-                          },
-                          child: CustomButton(
-                            cBtnName: "Save",
-                            cBtnWidth: MediaQuery.of(context).size.width / 2,
-                          ),
-                        );
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                postProduct(widget.isUpdate);
+                              }
+                            },
+                            child: widget.isUpdate!
+                                ? CustomButton(
+                                    cBtnName: "Update",
+                                    cBtnWidth:
+                                        MediaQuery.of(context).size.width / 2,
+                                  )
+                                : CustomButton(
+                                    cBtnName: "Save",
+                                    cBtnWidth:
+                                        MediaQuery.of(context).size.width / 2,
+                                  ));
                       },
                     ),
                   )
@@ -271,7 +282,7 @@ class _AddNewProductState extends State<AddNewProduct> {
     }
   }
 
-  void postProduct() {
+  void postProduct(isUpdate) {
     print('image id :: $imageId');
     var requestBody = Data(
       title: titleController.text,
@@ -282,6 +293,10 @@ class _AddNewProductState extends State<AddNewProduct> {
       thumbnail: imageId.toString(),
       price: (priceController.text),
     );
-    productViewModel.postProduct(requestBody);
+    if (isUpdate) {
+      productViewModel.putProduct(requestBody, widget.data.id);
+    } else {
+      productViewModel.postProduct(requestBody);
+    }
   }
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:e_commerce_app/views/admin/add_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/models/response/product_model.dart';
 import '../product_detail_screen.dart';
@@ -30,7 +31,18 @@ class ProductCard extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => ProductDetailScreen(
                     productData: productData,
-                    // product: product,
+                  ),
+                ),
+              );
+            },
+            //*Double tabs to update product
+            onDoubleTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddNewProduct(
+                    data: productData,
+                    isUpdate: true,
                   ),
                 ),
               );

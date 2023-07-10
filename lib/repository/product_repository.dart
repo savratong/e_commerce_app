@@ -8,11 +8,12 @@ class ProductRepository {
   final NetworkApiService _apiService = NetworkApiService();
 
   //*Upload Image
-  Future<ImageModel> uploadImage(file) async{
-    try{
-        dynamic response = await _apiService.uploadImage(AppUrl.uploadImage, file);
-        return response;
-    }catch(e){
+  Future<ImageModel> uploadImage(file) async {
+    try {
+      dynamic response =
+          await _apiService.uploadImage(AppUrl.uploadImage, file);
+      return response;
+    } catch (e) {
       rethrow;
     }
   }
@@ -28,13 +29,25 @@ class ProductRepository {
   }
 
 //*POST
-  Future<dynamic> postProduct(requestBody) async{
-    try{
-        var productBody = ProductRequest(data: requestBody);
-        dynamic response = await _apiService.postApi(AppUrl.postProduct,
-                                                        productBody.toJson());
-        return response;
-    }catch(e){
+  Future<dynamic> postProduct(requestBody) async {
+    try {
+      var productBody = ProductRequest(data: requestBody);
+      dynamic response =
+          await _apiService.postApi(AppUrl.postProduct, productBody.toJson());
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //*PUT
+  Future<dynamic> putProduct(requestBody, id) async {
+    try {
+      var productBody = ProductRequest(data: requestBody);
+      var url = "${AppUrl.postProduct}/$id";
+      dynamic response = await _apiService.putApi(url, productBody.toJson());
+      return response;
+    } catch (e) {
       rethrow;
     }
   }

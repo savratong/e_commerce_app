@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/utils/router.dart';
-import 'package:e_commerce_app/views/admin/add_product/add_product_screen.dart';
+import 'package:e_commerce_app/views/admin/add_product_screen.dart';
 import 'package:e_commerce_app/views/admin/delete_product_screen.dart';
 import 'package:e_commerce_app/views/admin/update_product_screen.dart';
 import 'package:flutter/material.dart';

@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProductViewModel extends ChangeNotifier {
   final _productRepository = ProductRepository();
 
-  dynamic products = ApiResponse.loading();
+  dynamic products = ApiResponse();
   dynamic image = ApiResponse();
 
   var productLists = <ProductData>[];
@@ -98,8 +98,9 @@ class ProductViewModel extends ChangeNotifier {
 
   //*GET
   Future<dynamic> fetchAllProducts() async {
-    await _productRepository.getProducts().then((res) {
-      setProductList(ApiResponse.completed(res));
+    setProductList(ApiResponse.loading());
+    await _productRepository.getProducts().then((value) {
+      setProductList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setProductList(ApiResponse.error(error.toString()));
     });
@@ -107,6 +108,7 @@ class ProductViewModel extends ChangeNotifier {
 
   //*POST
   Future<dynamic> postProduct(requestBody) async {
+    setProductList(ApiResponse.loading());
     await _productRepository
         .postProduct(requestBody)
         .then((value) => setProductList(ApiResponse.completed(value)))
@@ -115,9 +117,20 @@ class ProductViewModel extends ChangeNotifier {
   }
 
   //*PUT
-  Future<dynamic> putProduct(requestBody,id) async {
+  Future<dynamic> putProduct(requestBody, id) async {
+    setProductList(ApiResponse.loading());
     await _productRepository
         .putProduct(requestBody, id)
+        .then((value) => setProductList(ApiResponse.completed(value)))
+        .onError((error, stackTrace) =>
+            setProductList(ApiResponse.error(error.toString())));
+  }
+
+  //*DELETE
+  Future<dynamic> deleteProduct(id) async {
+    setProductList(ApiResponse.loading());
+    await _productRepository
+        .deleteproduct(id)
         .then((value) => setProductList(ApiResponse.completed(value)))
         .onError((error, stackTrace) =>
             setProductList(ApiResponse.error(error.toString())));

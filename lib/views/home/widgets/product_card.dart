@@ -1,16 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:e_commerce_app/data/response/status.dart';
+import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
 import 'package:e_commerce_app/views/admin/add_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/models/response/product_model.dart';
+import 'package:provider/provider.dart';
 import '../product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
+  var productViewModel = ProductViewModel();
   ProductData productData;
-  Product? product;
   ProductCard({
     Key? key,
     required this.productData,
-    this.product,
   }) : super(key: key);
 
   @override
@@ -46,6 +48,50 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               );
+            },
+
+            //*Long press to delete product
+            onLongPress: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                          title: const Text('Are you sure to delete?'),
+                          content: const Text(
+                              'After you delete, it can not revert back'),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('No')),
+                            TextButton(
+                                onPressed: () {
+                                  productViewModel
+                                      .deleteProduct(productData.id);
+                                },
+                                child: ChangeNotifierProvider(
+                                  create: (context) => productViewModel,
+                                  child: Consumer<ProductViewModel>(
+                                      builder: (context, viewModel, _) {
+                                    if (viewModel.products.status ==
+                                        Status.COMPLETE) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((timeStamp) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content:
+                                                    Text('Item deleted!')));
+                                      });
+                                      Navigator.pop(context);
+                                    }
+
+                                    return viewModel.products.status ==
+                                            Status.LOADING
+                                        ? const CircularProgressIndicator()
+                                        : const Text('Ok');
+                                  }),
+                                ))
+                          ]));
             },
             child: SizedBox(
               height: 270,

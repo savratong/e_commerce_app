@@ -80,8 +80,10 @@ class NetworkApiService {
 
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
+      return true;
     } else {
       print(response.reasonPhrase);
+      return false;
     }
   }
 }

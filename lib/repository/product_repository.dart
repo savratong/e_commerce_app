@@ -51,4 +51,16 @@ class ProductRepository {
       rethrow;
     }
   }
+
+  //*DELETE
+  Future<dynamic> deleteproduct(id) async{
+    try{
+      var url = '${AppUrl.postProduct}/$id';
+
+      dynamic response = await _apiService.deleteApi(url);
+      return response;
+    }catch(e){
+      rethrow;
+    }
+  }
 }

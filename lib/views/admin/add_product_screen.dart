@@ -97,8 +97,8 @@ class _AddNewProductState extends State<AddNewProduct> {
                                       ? Image.network(
                                           "https://cms.istad.co${widget.data.attributes.thumbnail.data.attributes.url}",
                                         )
-                                      : Image.network(
-                                          'https://www.atlantawatershed.org/wp-content/uploads/2017/06/default-placeholder.png',
+                                      : Image.asset(
+                                          'assets/images/default_image_placeholder.png',
                                           width: double.infinity,
                                           height: 250,
                                           fit: BoxFit.cover,

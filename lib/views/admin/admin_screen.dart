@@ -43,8 +43,9 @@ class AdminScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                   AddNewProduct()),
+                              builder: (context) => AddNewProduct(
+                                    isUpdate: false,
+                                  )),
                         );
                       },
                       child: Container(

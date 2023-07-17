@@ -3,7 +3,6 @@ import 'package:e_commerce_app/views/cart/cart_screen.dart';
 import 'package:e_commerce_app/views/admin/admin_screen.dart';
 import 'package:e_commerce_app/views/home/home_screen.dart';
 import 'package:e_commerce_app/views/favorite/favorite_screen.dart';
-import 'package:e_commerce_app/views/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -19,7 +18,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
     HomeScreen(),
     CartScreen(),
     FavoriteScreen(),
-    ProfileScreen(),
     AdminScreen(),
   ];
 
@@ -60,15 +58,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.person_outline_outlined,
-                color: _selectedIndex == 3 ? primaryColor : navigationIconColor,
-              ),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
                 Icons.admin_panel_settings_outlined,
-                color: _selectedIndex == 4 ? primaryColor : navigationIconColor,
+                color: _selectedIndex == 3 ? primaryColor : navigationIconColor,
               ),
               label: 'Admin',
             ),
@@ -90,7 +81,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           selectedLabelStyle:
               const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           onTap: _onItemTapped,
-          elevation: 5),
+          elevation: 4),
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: primaryColor,
       //   // child: SvgPicture.asset('assets/svg/scan_icon.svg'),

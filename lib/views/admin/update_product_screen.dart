@@ -15,8 +15,8 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
         elevation: 0,
         title: const Text("Update Product"),
       ),
-      body: Center(
-        child: Text("Update"),
+      body: const Center(
+        child: Text("Comming soon..."),
       ),
     );
   }

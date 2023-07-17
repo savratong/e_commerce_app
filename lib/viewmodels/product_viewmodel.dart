@@ -53,7 +53,7 @@ class ProductViewModel extends ChangeNotifier {
     });
   }
 
-  void loadCartItems() {
+   loadCartItems() {
     // Load the cart items from local storage or preferences
     SharedPreferences.getInstance().then((prefs) {
       final cartItemsJson = prefs.getString(kCartItemsKey);

@@ -2,24 +2,20 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import 'package:e_commerce_app/models/response/product_model.dart';
 import 'package:e_commerce_app/views/admin/admin_screen.dart';
 import 'package:e_commerce_app/views/favorite/favorite_screen.dart';
 
 import 'views/cart/cart_screen.dart';
 import 'views/home/home_screen.dart';
-import 'views/profile/profile_screen.dart';
 
 class ManinScreen extends StatelessWidget {
   const ManinScreen({super.key});
 
- 
   List<Widget> _buildScreens() {
     return [
       const HomeScreen(),
       const CartScreen(),
       const FavoriteScreen(),
-      const ProfileScreen(),
       const AdminScreen(),
     ];
   }
@@ -43,12 +39,7 @@ class ManinScreen extends StatelessWidget {
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.person),
-        title: ("Profile"),
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
-      ),
+    
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.settings),
         title: ("Admin"),
@@ -66,10 +57,7 @@ class ManinScreen extends StatelessWidget {
 
     _controller = PersistentTabController(initialIndex: 0);
     return Scaffold(
-      body: const Center(
-        
-      )
-      ,
+      body: const Center(),
       bottomNavigationBar: PersistentTabView(
         context,
         controller: _controller,

@@ -15,8 +15,8 @@ class _DeleteProductScreenState extends State<DeleteProductScreen> {
         elevation: 0,
         title: const Text("Delete Product"),
       ),
-      body: Center(
-        child: Text("Delete"),
+      body: const Center(
+        child: Text("Comming soon..."),
       ),
     );
   }

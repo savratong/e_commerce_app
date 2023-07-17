@@ -21,7 +21,8 @@ class CategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(5),
-            //! child: Image.network(categoryData.attributes.iconUrl), //Category Image
+            child:
+                Image.network(categoryData.attributes.iconUrl), //Category Image
           ),
         ),
         const SizedBox(

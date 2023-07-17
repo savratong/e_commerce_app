@@ -53,9 +53,6 @@ class ProductData {
 
 class ProductDataAttributes {
   String? title;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? publishedAt;
   String? price;
   String? rating;
   String? description;
@@ -65,9 +62,6 @@ class ProductDataAttributes {
 
   ProductDataAttributes({
     this.title,
-    this.createdAt,
-    this.updatedAt,
-    this.publishedAt,
     this.price,
     this.rating,
     this.description,
@@ -79,15 +73,6 @@ class ProductDataAttributes {
   factory ProductDataAttributes.fromJson(Map<String, dynamic> json) =>
       ProductDataAttributes(
         title: json["title"],
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        publishedAt: json["publishedAt"] == null
-            ? null
-            : DateTime.parse(json["publishedAt"]),
         price: json["price"],
         rating: json["rating"],
         description: json["description"],
@@ -102,9 +87,6 @@ class ProductDataAttributes {
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "createdAt": createdAt?.toIso8601String(),
-        "updatedAt": updatedAt?.toIso8601String(),
-        "publishedAt": publishedAt?.toIso8601String(),
         "price": price,
         "rating": rating,
         "description": description,
@@ -154,39 +136,22 @@ class CategoryData {
 
 class CategoryDataAttributes {
   String? title;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? publishedAt;
+
   String? iconUrl;
 
   CategoryDataAttributes({
     this.title,
-    this.createdAt,
-    this.updatedAt,
-    this.publishedAt,
     this.iconUrl,
   });
 
   factory CategoryDataAttributes.fromJson(Map<String, dynamic> json) =>
       CategoryDataAttributes(
         title: json["title"],
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        publishedAt: json["publishedAt"] == null
-            ? null
-            : DateTime.parse(json["publishedAt"]),
         iconUrl: json["iconUrl"],
       );
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "createdAt": createdAt?.toIso8601String(),
-        "updatedAt": updatedAt?.toIso8601String(),
-        "publishedAt": publishedAt?.toIso8601String(),
         "iconUrl": iconUrl,
       };
 }
@@ -231,22 +196,18 @@ class ThumbnailData {
 }
 
 class ThumbnailDataAttributes {
-  String? name;
   String? url;
 
   ThumbnailDataAttributes({
-    this.name,
     this.url,
   });
 
   factory ThumbnailDataAttributes.fromJson(Map<String, dynamic> json) =>
       ThumbnailDataAttributes(
-        name: json["name"],
         url: json["url"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
         "url": url,
       };
 }

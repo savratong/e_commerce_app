@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/components/custom_button.dart';
 import 'package:e_commerce_app/utils/router.dart';
 import 'package:flutter/material.dart';
 
@@ -9,31 +10,27 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-         SizedBox(
-             height: MediaQuery.of(context).size.height*0.2,
-           ),
-          const Center(
-            child: Text(
-              "Wellcome!",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          const Expanded(
+            child: Center(
+              child: Text(
+                "Wellcome!",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-           SizedBox(
-             height: MediaQuery.of(context).size.height*0.2,
-           ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  RouteGenerator.navigationScreen,
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  "Start Shopping",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ))
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                RouteGenerator.navigationScreen,
+              );
+            },
+            child: CustomButton(
+                cBtnName: "Start Shopping",
+                cBtnWidth: MediaQuery.of(context).size.width * 0.6),
+          ),
+          const SizedBox(
+            height: 20,
+          )
         ]),
       ),
     );

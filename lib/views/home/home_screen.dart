@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //*fetch date from viewmodel
   var productViewModel = ProductViewModel();
   var categoryViewModel = CategoryViewModel();
-
+  bool favIconSelected = false;
   @override
   void initState() {
     productViewModel.fetchAllProducts();
@@ -243,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          childAspectRatio: 0.54,
+                          childAspectRatio: 0.55,
                         ),
                         itemBuilder: (builder, index) {
                           return ProductCard(

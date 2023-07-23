@@ -69,7 +69,7 @@ class _SeeAllProductState extends State<SeeAllProduct> {
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          childAspectRatio: 0.54,
+                          childAspectRatio: 0.55,
                         ),
                         itemBuilder: (builder, index) {
                           return ProductCard(

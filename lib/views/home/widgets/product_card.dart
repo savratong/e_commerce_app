@@ -1,19 +1,28 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:e_commerce_app/data/response/status.dart';
+import 'package:e_commerce_app/models/response/product_model.dart';
 import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
 import 'package:e_commerce_app/views/admin/add_product_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:e_commerce_app/models/response/product_model.dart';
-import 'package:provider/provider.dart';
+
 import '../product_detail_screen.dart';
 
-class ProductCard extends StatelessWidget {
-  var productViewModel = ProductViewModel();
+class ProductCard extends StatefulWidget {
   ProductData productData;
   ProductCard({
     Key? key,
     required this.productData,
   }) : super(key: key);
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  var productViewModel = ProductViewModel();
+  bool favIconSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,8 @@ class ProductCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProductDetailScreen(
-                    productData: productData,
+                    productData: widget.productData,
+                    favIconSelected: favIconSelected,
                   ),
                 ),
               );
@@ -43,7 +53,7 @@ class ProductCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => AddNewProduct(
-                    data: productData,
+                    data: widget.productData,
                     isUpdate: true,
                   ),
                 ),
@@ -67,7 +77,7 @@ class ProductCard extends StatelessWidget {
                             TextButton(
                                 onPressed: () {
                                   productViewModel
-                                      .deleteProduct(productData.id);
+                                      .deleteProduct(widget.productData.id);
                                 },
                                 child: ChangeNotifierProvider(
                                   create: (context) => productViewModel,
@@ -98,10 +108,10 @@ class ProductCard extends StatelessWidget {
               width: 185,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: productData.attributes!.thumbnail != null &&
-                          productData.attributes != null
+                  child: widget.productData.attributes!.thumbnail != null &&
+                          widget.productData.attributes != null
                       ? Image.network(
-                          "https://cms.istad.co${productData.attributes!.thumbnail!.data!.attributes!.url}",
+                          "https://cms.istad.co${widget.productData.attributes!.thumbnail!.data!.attributes!.url}",
                           // "assets/images/default_image.jpg",
                           fit: BoxFit.cover,
                         )
@@ -115,35 +125,43 @@ class ProductCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 170,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "US \$${productData.attributes!.price}", //Product Price
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Icon(
-                        Icons.favorite_border_outlined,
-                        size: 25,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  width: 170,
                   child: Text(
-                    ("${productData.attributes!.title}"), //Product Title
+                    ("${widget.productData.attributes!.title}"), //Product Title
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: 15,
+                      fontWeight: FontWeight.bold,
                     ),
+                  ),
+                ),
+                const SizedBox(height: 3),
+                SizedBox(
+                  width: 170,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "US \$${widget.productData.attributes!.price}", //Product Price
+                        style: const TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            favIconSelected = !favIconSelected;
+                          });
+                        },
+                        child: Icon(
+                          favIconSelected
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                          color: Colors.red,
+                          size: 22,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

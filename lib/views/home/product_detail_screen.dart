@@ -1,11 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:e_commerce_app/models/response/product_model.dart';
 import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
 import 'package:e_commerce_app/views/cart/cart_screen.dart';
-import 'package:e_commerce_app/views/home/widgets/item_color_card.dart';
 
 import 'widgets/item_bottom_navbar.dart';
 
@@ -50,15 +48,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.black,
+                    icon: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.white,
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.black,
+                      ),
                     )),
                 actions: [
                   IconButton(
-                    icon: const Icon(
-                      Icons.shopping_bag_outlined,
-                      color: Colors.black,
+                    icon: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.white,
+                      child: const Icon(
+                        Icons.shopping_bag_outlined,
+                        color: Colors.black,
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -101,22 +107,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: InkWell(
-                                onTap: () {
+                            CircleAvatar(
+                              radius: 17,
+                              backgroundColor: Colors.white,
+                              child: IconButton(
+                                iconSize: 20,
+                                icon: Icon(
+                                  widget.favIconSelected
+                                      ? Icons.favorite
+                                      : Icons.favorite_border_outlined,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
                                   setState(() {
                                     widget.favIconSelected =
                                         !widget.favIconSelected;
                                   });
                                 },
-                                child: Icon(
-                                  widget.favIconSelected
-                                      ? Icons.favorite
-                                      : Icons.favorite_border_outlined,
-                                  color: Colors.red,
-                                  size: 22,
-                                ),
                               ),
                             ),
                           ],

@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/data/response/status.dart';
 import 'package:e_commerce_app/viewmodels/category_viewmodel.dart';
 import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
+import 'package:e_commerce_app/views/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       //*Drawer
       drawer: const LeftDrawer(),
-      backgroundColor: Colors.white,
       //*Body
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overScroll) {
@@ -49,75 +49,102 @@ class _HomeScreenState extends State<HomeScreen> {
               // backgroundColor: Colors.white,
               pinned: true,
               elevation: 0,
-              title: const Center(
-                child: Text(
-                  "271st, Phnom Penh",
-                  style: TextStyle(
-                    fontSize: 18,
-                    //color: Colors.black,
-                  ),
+              title: Text(
+                "271st, Phnom Penh",
+                style: TextStyle(
+                  fontSize: 17,
+                  //color: Colors.black,
                 ),
               ),
               actions: [
+                IconButton(
+                    onPressed: () {
+                      showSearch(
+                        context: context,
+                        delegate: MySearchDelegate(),
+                      );
+                    },
+                    icon: const Icon(Icons.search_outlined, size: 30)),
                 IconButton(
                     onPressed: () {}, icon: const Icon(Icons.notifications))
               ],
             ),
 
             //*SearchBox
-            SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                // height: 250,
-                // color: Colors.blue,
-                child: Stack(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        //TODO
-                      },
-                      child: Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8))),
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Icon(
-                                Icons.search_rounded,
-                                size: 30,
-                                color: Colors.grey.shade700,
-                              ),
-                              Text(
-                                "Search items...",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.grey.shade700),
-                              )
-                            ],
-                          )),
-                    ),
-                    Positioned(
-                      right: 0,
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.filter_list_outlined,
-                            size: 35,
-                          )),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            // SliverToBoxAdapter(
+            //   child: Container(
+            //     padding: const EdgeInsets.all(10),
+            //     // height: 250,
+            //     // color: Colors.blue,
+            //     child: Stack(
+            //       children: [
+            //         InkWell(
+            //           onTap: () {
+            //             showSearch(
+            //               context: context,
+            //               delegate: MySearchDelegate(),
+            //             );
+            //           },
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             children: [
+            //               Expanded(
+            //                 child: Container(
+            //                     height: 50,
+            //                     width: MediaQuery.of(context).size.width,
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.grey.shade200,
+            //                         borderRadius: const BorderRadius.all(
+            //                             Radius.circular(8))),
+            //                     child: Row(
+            //                       children: [
+            //                         const SizedBox(
+            //                           width: 15,
+            //                         ),
+            //                         Icon(
+            //                           Icons.search_rounded,
+            //                           size: 30,
+            //                           color: Colors.grey.shade700,
+            //                         ),
+            //                         Text(
+            //                           "Search items...",
+            //                           style: TextStyle(
+            //                               fontSize: 15,
+            //                               color: Colors.grey.shade700),
+            //                         )
+            //                       ],
+            //                     )),
+            //               ),
+            //               SizedBox(
+            //                 width: 10,
+            //               ),
+            //               Container(
+            //                 height: 50,
+            //                 decoration: BoxDecoration(
+            //                     color: Colors.grey.shade200,
+            //                     borderRadius:
+            //                         const BorderRadius.all(Radius.circular(8))),
+            //                 child: IconButton(
+            //                     onPressed: () {},
+            //                     icon: const Icon(
+            //                       Icons.filter_list_outlined,
+            //                       size: 35,
+            //                     )),
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
 
             //*Banner SlideShow
             const SliverToBoxAdapter(
-              child: BannerSlideshow(),
+              child: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: BannerSlideshow(),
+              ),
             ),
 
             //*Category title
@@ -223,9 +250,9 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: ChangeNotifierProvider<ProductViewModel>(
                 create: (context) => productViewModel,
-                child: Consumer<ProductViewModel>(builder: (create, value, _) {
+                child: Consumer<ProductViewModel>(builder: (create, productViewModel, _) {
                   // print("${value.products}");
-                  switch (value.products.status) {
+                  switch (productViewModel.products.status) {
                     case Status.LOADING:
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -233,8 +260,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     case Status.COMPLETE:
                       return GridView.builder(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                        itemCount: value.products.data!.data.length,
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        itemCount: productViewModel.products.data!.data.length,
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -247,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         itemBuilder: (builder, index) {
                           return ProductCard(
-                            productData: value.products.data!.data[index],
+                            productData: productViewModel.products.data!.data[index],
                           );
                         },
                       );

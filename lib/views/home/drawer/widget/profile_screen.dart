@@ -1,4 +1,3 @@
-import 'package:e_commerce_app/views/search/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,20 +8,20 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Center(child: Text("Profile")),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SearchScreen()),
-                );
-              },
-              icon: const Icon(Icons.search_outlined, size: 30))
-        ],
+        title: const Text("Profile"),
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         showSearch(
+        //           context: context,
+        //           delegate: MySearchDelegate(),
+        //         );
+        //       },
+        //       icon: const Icon(Icons.search_outlined, size: 30))
+        // ],
       ),
-      body: Column(
-        children: [Text("Comming Soon...")],
+      body: const Center(
+        child: Text("Comming Soon..."),
       ),
     );
   }

@@ -30,9 +30,9 @@ class _SeeAllProductState extends State<SeeAllProduct> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SearchScreen()),
+                showSearch(
+                  context: context,
+                  delegate: MySearchDelegate(),
                 );
               },
               icon: const Icon(Icons.search_outlined, size: 30))

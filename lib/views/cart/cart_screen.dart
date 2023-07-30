@@ -26,8 +26,11 @@ class _CartScreenState extends State<CartScreen> {
   void initState() {
     super.initState();
     initSharedPreferences();
-    productViewModel = Provider.of<ProductViewModel>(context, listen: false);
     fetchCartItems();
+    productViewModel = Provider.of<ProductViewModel>(context, listen: false);
+    productViewModel.fetchAllProducts();
+    productViewModel.loadCartItems();
+    cartItems = productViewModel.cartItems;
   }
 
   Future<void> initSharedPreferences() async {
@@ -110,91 +113,95 @@ class _CartScreenState extends State<CartScreen> {
                 )
               else
                 Expanded(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: cartItems.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: ItemInCart(
-                                productData: cartItems[index],
+                  child: Consumer<ProductViewModel>(
+                    builder: (context, productViewModel, _) {
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: cartItems.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: ItemInCart(
+                                    productData: cartItems[index],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Sub-total:"),
+                              Text(
+                                "\$${productViewModel.subTotalPrice}",
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Sub-total:"),
-                          Text(
-                            "\$",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("VAT(10%):"),
+                              Text(
+                                "\$${productViewModel.vatOfTotalPrice}",
+                                // style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          // const Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text("Delivery fee:"),
+                          //     Text(
+                          //       "\$",
+                          //       style: TextStyle(fontWeight: FontWeight.bold),
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Total:"),
+                              Text(
+                                "\$${productViewModel.totalPriceIncludingVAT}",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CheckOutScreen()),
+                              );
+                            },
+                            child: CustomButton(
+                              cBtnWidth: MediaQuery.of(context).size.width,
+                              cBtnName: "Check out",
+                            ),
                           ),
                         ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("VAT(%):"),
-                          Text(
-                            "\$",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Delivery fee:"),
-                          Text(
-                            "\$",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Total:"),
-                          Text(
-                            "\$",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>  CheckOutScreen()),
-                          );
-                        },
-                        child: CustomButton(
-                          cBtnWidth: MediaQuery.of(context).size.width,
-                          cBtnName: "Check out",
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 )
             ],

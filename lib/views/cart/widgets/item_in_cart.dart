@@ -16,33 +16,18 @@ class ItemInCart extends StatefulWidget {
 }
 
 class _ItemInCartState extends State<ItemInCart> {
-  int quantity = 1;
-
-  void increaseQuantity() {
-    setState(() {
-      quantity++;
-    });
-  }
-
-  void decreaseQuantity() {
-    if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
-    }
-  }
-
   var productViewModel = ProductViewModel();
 
   @override
   void initState() {
     productViewModel = Provider.of<ProductViewModel>(context, listen: false);
-    productViewModel.fetchAllProducts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    int quantityInCart =
+        productViewModel.getProductQuantityInCart(widget.productData);
     return Consumer<ProductViewModel>(
       builder: (context, value, _) {
         return Container(
@@ -86,9 +71,14 @@ class _ItemInCartState extends State<ItemInCart> {
                           ),
                         ),
                       ),
-                      Text(
-                        "${widget.productData.attributes!.description}",
-                        // style: TextStyle(fontWeight: FontWeight.bold),
+                      SizedBox(
+                        width: 210,
+                        child: Text(
+                          "${widget.productData.attributes!.description}",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          // style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                       const SizedBox(
                         height: 33,
@@ -119,6 +109,34 @@ class _ItemInCartState extends State<ItemInCart> {
                         duration: Duration(seconds: 2),
                       ),
                     );
+                    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                    //   showDialog(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return AlertDialog(
+                    //         title: const Text('Confirm'),
+                    //         content: const Text(
+                    //             'Are you sure you want to remove this product from the cart?'),
+                    //         actions: [
+                    //           TextButton(
+                    //             onPressed: () {
+                    //               Navigator.pop(context); // Close the dialog
+                    //             },
+                    //             child: const Text('Cancel'),
+                    //           ),
+                    //           TextButton(
+                    //             onPressed: () {
+                    //               productViewModel
+                    //                   .removeFromCart(widget.productData);
+                    //               Navigator.pop(context); // Close the dialog
+                    //             },
+                    //             child: const Text('Remove'),
+                    //           ),
+                    //         ],
+                    //       );
+                    //     },
+                    //   );
+                    // });
                   },
                   icon: const Icon(
                     Icons.delete_outline_rounded,
@@ -136,7 +154,12 @@ class _ItemInCartState extends State<ItemInCart> {
                   child: Row(
                     children: [
                       InkWell(
-                        onTap: decreaseQuantity,
+                        onTap: () {
+                          if (quantityInCart > 1) {
+                            productViewModel.decreaseProductQuantityInCart(
+                                widget.productData);
+                          }
+                        },
                         child: Container(
                           padding: const EdgeInsets.all(3),
                           child: const Icon(
@@ -145,9 +168,14 @@ class _ItemInCartState extends State<ItemInCart> {
                         ),
                       ),
                       SizedBox(
-                          width: 30, child: Center(child: Text('$quantity'))),
+                        width: 30,
+                        child: Center(child: Text('$quantityInCart')),
+                      ),
                       InkWell(
-                        onTap: increaseQuantity,
+                        onTap: () {
+                          productViewModel.increaseProductQuantityInCart(
+                              widget.productData);
+                        },
                         child: Container(
                           padding: const EdgeInsets.all(3),
                           child: const Icon(

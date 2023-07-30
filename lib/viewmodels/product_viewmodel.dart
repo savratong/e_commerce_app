@@ -13,47 +13,104 @@ class ProductViewModel extends ChangeNotifier {
   dynamic products = ApiResponse();
   dynamic image = ApiResponse();
 
-  var productLists = <ProductData>[];
-  var cartLists = <ProductData>[];
-
   List<ProductData> _cartItems = [];
   List<ProductData> get cartItems => _cartItems;
 
+  // New variable to handle quantity in the cart
+  Map<int, int> _quantityInCart = {}; // Product ID -> Quantity
+  Map<int, int> get quantityInCart => _quantityInCart;
+
   String kCartItemsKey = 'cart_items';
 
-  // void addToCart(ProductData productData) {
-  //   _cartItems.add(productData);
-  //   notifyListeners();
-  // }
+  //*Sub total price
+  double get subTotalPrice {
+    double subTotal = 0.00;
+    for (var item in _cartItems) {
+      double price = double.tryParse(item.attributes?.price ?? '0.00') ?? 0.00;
+      int quantity = _quantityInCart[item.id] ?? 1;
+      subTotal += (price * quantity);
+    }
+    return double.parse(
+        subTotal.toStringAsFixed(2)); // Round to 2 decimal places
+  }
 
-  // void removeFromCart(ProductData productData) {
-  //   _cartItems.remove(productData);
-  //   notifyListeners();
-  // }
+  //*VAT of sub total
+  double get vatOfTotalPrice {
+    const double vatPercentage = 0.10; // 10% VAT
+    double vatAmount = subTotalPrice * vatPercentage;
+    return double.parse(vatAmount.toStringAsFixed(2));
+  }
 
+  //*Total price
+  double get totalPriceIncludingVAT {
+    double totalPriceWithVAT = subTotalPrice + vatOfTotalPrice;
+    return double.parse(totalPriceWithVAT.toStringAsFixed(2));
+  }
+
+  //*Add product to cart
   void addToCart(ProductData productData) {
-    _cartItems.add(productData);
+    // Check if the product already exists in the cart
+    int existingQuantity = _quantityInCart[productData.id] ?? 0;
+    if (existingQuantity > 0) {
+      // If the product exists, increase its quantity by 1
+      _quantityInCart[productData.id!] = existingQuantity + 1;
+    } else {
+      // If the product is not in the cart, add it with quantity 1
+      _cartItems.add(productData);
+      _updateQuantityInCart(productData.id!, 1);
+    }
+
     saveCartItems();
     notifyListeners();
   }
 
+  //*Remove product from cart
   void removeFromCart(ProductData productData) {
-    // _cartItems.remove(productData);
-    _cartItems.removeWhere((item) =>
-        item.id == productData.id); // Remove the item with matching ID
-    notifyListeners();
+    _cartItems.removeWhere((item) => item.id == productData.id);
+    _updateQuantityInCart(productData.id!, 0); // Remove the product from cart
     saveCartItems();
+    notifyListeners();
   }
 
+  //*Update product qty
+  void _updateQuantityInCart(int productId, int quantity) {
+    _quantityInCart[productId] = quantity;
+  }
+
+  int getProductQuantityInCart(ProductData productData) {
+    return _quantityInCart[productData.id] ?? 1;
+  }
+
+  //*Increase product qty in cart
+  void increaseProductQuantityInCart(ProductData productData) {
+    int currentQuantity = _quantityInCart[productData.id] ?? 0;
+    _quantityInCart[productData.id!] = currentQuantity + 1;
+    saveCartItems();
+    notifyListeners();
+  }
+
+  //*Decrease product qty in cart
+  void decreaseProductQuantityInCart(ProductData productData) {
+    int currentQuantity = _quantityInCart[productData.id] ?? 0;
+    if (currentQuantity > 1) {
+      _quantityInCart[productData.id!] = currentQuantity - 1;
+      saveCartItems();
+      notifyListeners();
+    }
+  }
+
+  //*Save items in cart to local storage
   void saveCartItems() {
     final cartItemsJson = jsonEncode(_cartItems);
     // Save the cart items to local storage or preferences
     SharedPreferences.getInstance().then((prefs) {
       prefs.setString(kCartItemsKey, cartItemsJson);
+      notifyListeners();
     });
   }
 
-   loadCartItems() {
+  //*Load items in cart from local storage
+  loadCartItems() {
     // Load the cart items from local storage or preferences
     SharedPreferences.getInstance().then((prefs) {
       final cartItemsJson = prefs.getString(kCartItemsKey);
@@ -75,6 +132,7 @@ class ProductViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  //*Post image
   Future<dynamic> uploadImage(file) async {
     setImageResponse(ApiResponse.loading());
     await _productRepository
@@ -91,9 +149,6 @@ class ProductViewModel extends ChangeNotifier {
       products = response;
     }
     notifyListeners();
-
-    // products = response;
-    // notifyListeners();
   }
 
   //*GET

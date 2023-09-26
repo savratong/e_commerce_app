@@ -66,30 +66,36 @@ class _ItemInCartState extends State<ItemInCart> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
-                            fontSize: 15,
+                            fontSize: 12.5,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 210,
-                        child: Text(
-                          "${widget.productData.attributes!.description}",
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          // style: TextStyle(fontWeight: FontWeight.bold),
+                      Expanded(
+                        child: SizedBox(
+                          width: 210,
+                          child: Text(
+                            "${widget.productData.attributes!.description}",
+                            style: TextStyle(fontSize: 12),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            // style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 33,
-                      ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
                       Row(
                         children: [
-                          const Text("Price: "),
+                          const Text(
+                            "Price: ",
+                            style: TextStyle(fontSize: 12),
+                          ),
                           Text(
                             "\$${widget.productData.attributes!.price}", //Product price
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
+                                fontWeight: FontWeight.w500, fontSize: 12),
                           ),
                         ],
                       )
@@ -97,6 +103,8 @@ class _ItemInCartState extends State<ItemInCart> {
                   ),
                 ],
               ),
+
+              //Remove product from cart
               Positioned(
                 top: -10,
                 right: -10,
@@ -144,6 +152,8 @@ class _ItemInCartState extends State<ItemInCart> {
                   ),
                 ),
               ),
+
+              //Decrease and Increase product quantity in cart
               Positioned(
                 bottom: 0,
                 right: 0,
@@ -164,22 +174,29 @@ class _ItemInCartState extends State<ItemInCart> {
                           padding: const EdgeInsets.all(3),
                           child: const Icon(
                             Icons.remove,
+                            size: 20,
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 30,
-                        child: Center(child: Text('$quantityInCart')),
+                        child: Center(
+                            child: Text(
+                          '$quantityInCart',
+                          style: TextStyle(fontSize: 12),
+                        )),
                       ),
                       InkWell(
                         onTap: () {
                           productViewModel.increaseProductQuantityInCart(
-                              widget.productData);
+                            widget.productData,
+                          );
                         },
                         child: Container(
                           padding: const EdgeInsets.all(3),
                           child: const Icon(
                             Icons.add,
+                            size: 20,
                           ),
                         ),
                       ),

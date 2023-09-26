@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/data/response/api_response.dart';
 import 'package:e_commerce_app/data/response/status.dart';
+import 'package:e_commerce_app/models/response/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/repository/category_repository.dart';
 
@@ -7,6 +8,9 @@ class CategoryViewModel extends ChangeNotifier {
   final _categoryRepository = CategoryRepository();
 
   dynamic categories = ApiResponse.loading();
+
+  List<CategoryData> _category = [];
+  List<CategoryData> get category => _category;
 
   setCategoryList(response) {
     if (response.data == null) {

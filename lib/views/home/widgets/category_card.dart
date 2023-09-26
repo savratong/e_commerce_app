@@ -35,7 +35,7 @@ class CategoryCard extends StatelessWidget {
             child: Text(
               categoryData.attributes.title, //Category title
               overflow: TextOverflow.clip, maxLines: 1,
-              style: const TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 12),
             ),
           ),
         )

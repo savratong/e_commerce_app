@@ -131,16 +131,21 @@ class _CartScreenState extends State<CartScreen> {
                               },
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          Divider(
+                            thickness: 1,
+                            color: Colors.grey,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Sub-total:"),
+                              Text(
+                                "Sub-total:",
+                                style: TextStyle(fontSize: 12),
+                              ),
                               Text(
                                 "\$${productViewModel.subTotalPrice}",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -150,10 +155,15 @@ class _CartScreenState extends State<CartScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("VAT(10%):"),
+                              Text(
+                                "VAT(10%):",
+                                style: TextStyle(fontSize: 12),
+                              ),
                               Text(
                                 "\$${productViewModel.vatOfTotalPrice}",
-                                // style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
@@ -176,10 +186,18 @@ class _CartScreenState extends State<CartScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Total:"),
+                              Text(
+                                "Grand Total:",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
                               Text(
                                 "\$${productViewModel.totalPriceIncludingVAT}",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),

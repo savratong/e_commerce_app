@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:e_commerce_app/viewmodels/add_to_favorite_viewmodel.dart';
 import 'package:e_commerce_app/views/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   var productViewModel = ProductViewModel();
+  var favforiteViewModel = FavouriteViewModel();
   bool favIconSelected = false;
   bool addItemToCartSelected = false;
 
@@ -40,6 +42,7 @@ class _ProductCardState extends State<ProductCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              //*Implement actions
               InkWell(
                 //*Open product detail
                 onTap: () {
@@ -136,16 +139,15 @@ class _ProductCardState extends State<ProductCard> {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        // fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 3),
                     Text(
                       "US \$${widget.productData.attributes!.price}", //Product Price
                       style: const TextStyle(
-                        fontSize: 15,
-                      ),
+                          fontSize: 12, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -153,7 +155,7 @@ class _ProductCardState extends State<ProductCard> {
             ],
           ),
         ),
-        //*Fav icon
+        //*Favorite icon
         Positioned(
           top: 2,
           right: 2,
@@ -169,6 +171,9 @@ class _ProductCardState extends State<ProductCard> {
                 color: Colors.red,
               ),
               onPressed: () {
+                favIconSelected
+                    ? favforiteViewModel.addToFavItem(widget.productData)
+                    : favforiteViewModel.removeFromFavItem(widget.productData);
                 setState(() {
                   favIconSelected = !favIconSelected;
                 });

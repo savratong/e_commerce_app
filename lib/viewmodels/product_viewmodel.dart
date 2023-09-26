@@ -20,7 +20,7 @@ class ProductViewModel extends ChangeNotifier {
   Map<int, int> _quantityInCart = {}; // Product ID -> Quantity
   Map<int, int> get quantityInCart => _quantityInCart;
 
-  String kCartItemsKey = 'cart_items';
+  String kCartItemsKey = 'cart_items'; //use for load item from local storage
 
   //*Sub total price
   double get subTotalPrice {

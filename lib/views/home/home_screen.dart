@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: const Text(
                           "See all",
-                          style: TextStyle(fontSize: 16, color: Colors.blue),
+                          style: TextStyle(fontSize: 15, color: Colors.blue),
                         ),
                       )
                     ],
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //*Product title
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: const Text(
                         "See all",
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
+                        style: TextStyle(fontSize: 15, color: Colors.blue),
                       ),
                     )
                   ],
@@ -246,11 +246,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            //*List of Popular Products
+            //*List of Products
             SliverToBoxAdapter(
               child: ChangeNotifierProvider<ProductViewModel>(
                 create: (context) => productViewModel,
-                child: Consumer<ProductViewModel>(builder: (create, productViewModel, _) {
+                child: Consumer<ProductViewModel>(
+                    builder: (create, productViewModel, _) {
                   // print("${value.products}");
                   switch (productViewModel.products.status) {
                     case Status.LOADING:
@@ -270,11 +271,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          childAspectRatio: 0.55,
+                          childAspectRatio: 0.56,
                         ),
                         itemBuilder: (builder, index) {
                           return ProductCard(
-                            productData: productViewModel.products.data!.data[index],
+                            productData:
+                                productViewModel.products.data!.data[index],
                           );
                         },
                       );

@@ -1,4 +1,7 @@
+import 'package:e_commerce_app/utils/constants.dart';
 import 'package:e_commerce_app/utils/router.dart';
+import 'package:e_commerce_app/viewmodels/add_to_favorite_viewmodel.dart';
+import 'package:e_commerce_app/viewmodels/category_viewmodel.dart';
 import 'package:e_commerce_app/viewmodels/product_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,13 +22,16 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductViewModel()),
+        ChangeNotifierProvider(create: (_) => CategoryViewModel()),
+        ChangeNotifierProvider(create: (_) => FavouriteViewModel()),
 
         // Add more providers if needed
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+            scaffoldBackgroundColor: scaffoldColor,
+            primarySwatch: Colors.blue,
+            primaryColor: primaryColor),
 
         debugShowCheckedModeBanner: false, //Remove debug mode
         initialRoute: RouteGenerator.onboardingPage,

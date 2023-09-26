@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/components/custom_button.dart';
 import 'package:e_commerce_app/main_screen.dart';
 import 'package:e_commerce_app/views/cart/bank_card_info_screen.dart';
-import 'package:e_commerce_app/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class CheckOutScreen extends StatefulWidget {

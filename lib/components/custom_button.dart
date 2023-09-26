@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget {
       height: 50,
       width: cBtnWidth,
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: primaryColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(

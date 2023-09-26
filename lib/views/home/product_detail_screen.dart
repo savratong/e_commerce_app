@@ -102,7 +102,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -128,9 +128,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
                         // const Text(
                         //   "Colors availabe",
                         //   style: TextStyle(
@@ -161,7 +161,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         const Text(
                           "Description",
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                              fontSize: 15, fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(
                           height: 5,
@@ -169,6 +169,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         Text(
                           "${widget.productData.attributes!.description}", //Product's discription
                           textAlign: TextAlign.justify,
+                          style: TextStyle(fontSize: 12),
                         ),
                         const SizedBox(
                           height: 20,
